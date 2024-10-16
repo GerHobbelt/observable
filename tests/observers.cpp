@@ -50,7 +50,12 @@ public:
   }
 };
 
-int main() {
+#if defined(BUILD_MONOLITHIC)
+#define main observable_observers_test_main
+#endif
+
+extern "C"
+int main(void) {
   O o;
   ObserverA a;
   ObserverB b;
@@ -74,4 +79,6 @@ int main() {
   EXPECT_TRUE(c.c);
   EXPECT_EQ(1, c.a_arg);
   EXPECT_EQ(2, c.b_arg);
+
+	return 0;
 }

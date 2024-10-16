@@ -13,7 +13,12 @@
 #include <thread>
 #include <vector>
 
-int main() {
+#if defined(BUILD_MONOLITHIC)
+#define main observable_multithread_futures_test_main
+#endif
+
+extern "C"
+int main(void) {
   obs::signal<void()> sig;
   std::time_t t = std::time(nullptr);
 

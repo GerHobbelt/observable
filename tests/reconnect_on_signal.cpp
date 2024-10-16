@@ -20,7 +20,13 @@ void func() {
   conn = sig.connect(func);
 }
 
-int main() {
+#if defined(BUILD_MONOLITHIC)
+#define main observable_reconnect_on_signal_test_main
+#endif
+
+extern "C"
+int main(void) {
   conn = sig.connect(func);
   sig();
+	return 0;
 }

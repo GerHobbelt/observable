@@ -6,7 +6,12 @@
 
 #include "obs/signal.h"
 
-int main() {
+#if defined(BUILD_MONOLITHIC)
+#define main observable_disconnect_on_recursive_signal_test_main
+#endif
+
+extern "C"
+int main(void) {
   obs::signal<void(int)> s;     // We have to use "obs::" because ambiguous name from sys/signal.h on macOS?
   obs::connection c = s.connect(
     [&](int i){
@@ -16,4 +21,5 @@ int main() {
         c.disconnect();
     });
   s(5);
+	return 0;
 }

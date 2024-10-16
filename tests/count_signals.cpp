@@ -10,7 +10,12 @@
 #include <atomic>
 #include <vector>
 
-int main() {
+#if defined(BUILD_MONOLITHIC)
+#define main observable_count_signals_test_main
+#endif
+
+extern "C"
+int main(void) {
   std::vector<std::thread> threads;
   obs::signal<void()> sig;
 
@@ -34,4 +39,6 @@ int main() {
     thread.join();
 
   EXPECT_EQ(100*100*100, counter);
+
+	return 0;
 }

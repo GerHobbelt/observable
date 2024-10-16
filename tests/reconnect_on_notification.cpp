@@ -31,8 +31,14 @@ public:
   }
 };
 
-int main() {
+#if defined(BUILD_MONOLITHIC)
+#define main observable_reconnect_on_notification_test_main
+#endif
+
+extern "C"
+int main(void) {
   Reconnect r;
   object.add_observer(&r);
   object.notify_observers(&Observer::on_event);
+	return 0;
 }

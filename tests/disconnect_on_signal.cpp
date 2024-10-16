@@ -21,11 +21,17 @@ private:
   obs::connection m_conn;
 };
 
-int main() {
+#if defined(BUILD_MONOLITHIC)
+#define main observable_disconnect_on_signal_test_main
+#endif
+
+extern "C"
+int main(void) {
   obs::signal<void()> signal;
   {
     A a(signal);
     signal();
   }
   signal();
+	return 0;
 }

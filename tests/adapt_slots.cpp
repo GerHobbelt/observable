@@ -7,7 +7,12 @@
 #include "obs/signal.h"
 #include "test.h"
 
-int main() {
+#if defined(BUILD_MONOLITHIC)
+#define main observable_adapt_slots_test_main
+#endif
+
+extern "C"
+int main(void) {
   static_assert(true == obs::is_callable_without_args<void()>::value, "");
   static_assert(true == obs::is_callable_without_args<int()>::value, "");
   static_assert(false == obs::is_callable_without_args<void(int)>::value, "");
@@ -24,4 +29,6 @@ int main() {
   c();
   d(1);
   EXPECT_EQ(4, i);
+
+	return 0;
 }

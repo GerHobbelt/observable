@@ -29,7 +29,12 @@ public:
   }
 };
 
-int main() {
+#if defined(BUILD_MONOLITHIC)
+#define main observable_multithread_test_main
+#endif
+
+extern "C"
+int main(void) {
   obs::signal<void(int)> signal;
   std::vector<std::thread> threads;
 
@@ -70,4 +75,6 @@ int main() {
     thread.join();
 
   std::cout << "Count = " << count << "\n";
+
+	return 0;
 }

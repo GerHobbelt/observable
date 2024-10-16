@@ -91,4 +91,9 @@ static void BM_ObsThreads(benchmark::State& state) {
 }
 BENCHMARK(BM_ObsThreads)->Range(1, 1024);
 
+
+#if defined(BUILD_MONOLITHIC)
+#define main observable_benchmark_main
+#endif
+
 BENCHMARK_MAIN();

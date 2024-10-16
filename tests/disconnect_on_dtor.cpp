@@ -20,7 +20,12 @@ private:
   int& m_value;
 };
 
-int main() {
+#if defined(BUILD_MONOLITHIC)
+#define main observable_disconnect_on_dtor_test_main
+#endif
+
+extern "C"
+int main(void) {
   obs::signal<void()> signal;
   int value = 0;
   {
@@ -31,4 +36,6 @@ int main() {
   }
   signal();
   EXPECT_EQ(value, 1);
+
+	return 0;
 }

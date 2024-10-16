@@ -18,7 +18,12 @@ struct Entity {
   }
 };
 
-int main() {
+#if defined(BUILD_MONOLITHIC)
+#define main observable_signals_test_main
+#endif
+
+extern "C"
+int main(void) {
   {
     obs::signal<void()> sig;
     int c = 0;
@@ -88,4 +93,6 @@ int main() {
     EXPECT_EQ(old, 2);
     EXPECT_EQ(ent.a, 32);
   }
+
+	return 0;
 }
