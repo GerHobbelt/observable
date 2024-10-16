@@ -48,7 +48,7 @@ public:
 
   template<typename...Args2>
   R operator()(Args2&&...args) {
-    assert(f);
+    assert(f != nullptr);
     return f(std::forward<Args2>(args)...);
   }
 
@@ -74,7 +74,7 @@ public:
 
   template<typename...Args2>
   void operator()(Args2&&...args) {
-    assert(f);
+    assert(f != nullptr);
     f(std::forward<Args2>(args)...);
   }
 
