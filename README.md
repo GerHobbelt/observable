@@ -63,7 +63,7 @@ Signal
 ```cpp
 #include "obs.h"
 
-int main() {
+int main(void) {
   obs::signal<void (int, int)> sig;
   sig.connect([](int x, int y){ ... });
   sig(1, 2); // Generate signal
